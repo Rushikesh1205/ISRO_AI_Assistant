@@ -5,7 +5,7 @@
 
 **MAITRI (Multimodal AI for Psychological & Physical Well-being)** is an intelligent assistant designed to support astronauts’ mental and physical health during space missions. This web application includes a **dashboard, AI assistant, vitals monitoring, journal system, and Bharatiya Antariksh Station (BAS) module overview**.  
 
-Built with ❤️ for the future of Indian space exploration by **Team RoboRakshak**.
+Built with ❤️ for the future of Indian space exploration by **TEAM RoboRakshak**.
 
 ---
 
@@ -42,4 +42,38 @@ Built with ❤️ for the future of Indian space exploration by **Team RoboRaksh
 ---
 
 ## 📂 File Structure
+├── index.html # Home page
+├── dashboard.html # Dashboard interface
+├── journal.html # Astronaut journal page
+├── vitals.html # Vitals monitoring page
+├── ai_assist.html # AI Assistant interface
+├── bas.html # Bharatiya Antariksh Station info
+├── assets/ # Images, icons, and media
+├── style.css # Common styles
+└── README.md # Project documentation
 
+---
+
+## ⚙️ Usage
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/YourUsername/MAITRI.git
+2. Open index.html in your browser.
+3. Navigate through the modules using the top navbar.
+4. Use the Astronaut Journal to write and save entries.
+5. Export logs as TXT or PDF for record-keeping.
+
+---
+
+## 🌟 Contribution
+Contributions are welcome! Please follow these steps:
+1. Fork the repository.
+2. Create a new branch: git checkout -b feature/YourFeature.
+3. Commit your changes: git commit -m 'Add YourFeature'.
+4. Push to your branch: git push origin feature/YourFeature.
+5. Open a pull request.
+
+---
+
+📌 License
+This project is licensed under the MIT License. 
