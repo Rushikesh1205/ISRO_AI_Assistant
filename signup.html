@@ -1,0 +1,149 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maitri - Sign Up</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+</head>
+<body>
+
+<div class="login-container">
+    <div class="card">
+        <h2>Sign Up</h2>
+        <div class="form-group">
+            <label for="signupEmail">Email</label>
+            <input type="email" id="signupEmail" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+            <label for="signupPassword">Password</label>
+            <input type="password" id="signupPassword" placeholder="Create a password">
+        </div>
+        <button class="btn" onclick="signupUser()">Sign Up</button>
+        <div class="toggle-link">
+            Already have an account? <a href="login.html">Login</a>
+        </div>
+        <p id="signupMessage" style="color: #ff5555; text-align: center; margin-top: 10px;"></p>
+    </div>
+</div>
+
+<script>
+  // Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyAcpkpVD4nEI7i1CKyrLeKwBBLH0am0XQM",
+    authDomain: "next-7d0e8.firebaseapp.com",
+    projectId: "next-7d0e8",
+    storageBucket: "next-7d0e8.appspot.com",
+    messagingSenderId: "376198128129",
+    appId: "1:376198128129:web:40fb752937ccc980a2d600"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  function signupUser() {
+    const name = document.getElementById('signupName').value;
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+    const msg = document.getElementById('signupMessage');
+
+    auth.createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      user.updateProfile({ displayName: name });
+      msg.style.color = '#00ff99';
+      msg.innerText = "Signup successful! Redirecting...";
+      setTimeout(() => {
+        window.location.href = "maitri.html"; // redirect to dashboard
+      }, 1000);
+    })
+    .catch((error) => {
+      msg.style.color = '#ff5555';
+      msg.innerText = error.message;
+    });
+  }
+</script>
+
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maitri - Sign Up</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+</head>
+<body>
+
+<div class="login-container">
+    <div class="card">
+        <h2>Sign Up</h2>
+        <div class="form-group">
+            <label for="signupEmail">Email</label>
+            <input type="email" id="signupEmail" placeholder="Enter your email">
+        </div>
+        <div class="form-group">
+            <label for="signupPassword">Password</label>
+            <input type="password" id="signupPassword" placeholder="Create a password">
+        </div>
+        <button class="btn" onclick="signupUser()">Sign Up</button>
+        <div class="toggle-link">
+            Already have an account? <a href="login.html">Login</a>
+        </div>
+        <p id="signupMessage" style="color: #ff5555; text-align: center; margin-top: 10px;"></p>
+    </div>
+</div>
+
+<script>
+  // Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyAcpkpVD4nEI7i1CKyrLeKwBBLH0am0XQM",
+    authDomain: "next-7d0e8.firebaseapp.com",
+    projectId: "next-7d0e8",
+    storageBucket: "next-7d0e8.appspot.com",
+    messagingSenderId: "376198128129",
+    appId: "1:376198128129:web:40fb752937ccc980a2d600"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  function signupUser() {
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+    const msg = document.getElementById('signupMessage');
+
+    if (!email || !password) {
+      msg.style.color = '#ff5555';
+      msg.innerText = "Please enter email and password!";
+      return;
+    }
+
+    auth.createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      msg.style.color = '#00ff99';
+      msg.innerText = "Signup successful! Redirecting...";
+      setTimeout(() => {
+        window.location.href = "maitri.html"; // redirect to dashboard
+      }, 1000);
+    })
+    .catch((error) => {
+      msg.style.color = '#ff5555';
+      msg.innerText = error.message;
+    });
+  }
+</script>
+
+</body>
+</html>

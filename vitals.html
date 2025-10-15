@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAITRI – Vitals Monitor</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto+Mono&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+/* --- Global Styles --- */
+body {
+  margin: 0;
+  font-family: 'Roboto Mono', monospace;
+  color: #cfd8dc;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/6/6f/BAS_Render_NSpDay_2024.jpg?download') no-repeat center center fixed;
+  background-size: cover;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Overlay for readability */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: -1;
+}
+
+@keyframes gradientBG {
+  0% {background-position:0% 50%;}
+  50% {background-position:100% 50%;}
+  100% {background-position:0% 50%;}
+}
+
+/* --- Navbar --- */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0f172a;
+  padding: 15px 40px;
+  box-shadow: 0 0 25px #00ffff20;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+nav .logo a {
+  color: #00e5ff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  text-decoration: none;
+}
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+  margin: 0;
+  flex-wrap: wrap;
+}
+nav ul li a {
+  text-decoration: none;
+  color: #e0e0e0;
+  transition: 0.3s;
+  font-size: 14px;
+}
+nav ul li a:hover, nav ul li a.active {
+  color: #00e5ff;
+  text-shadow: 0 0 10px #00e5ff;
+}
+
+/* --- Vitals Card --- */
+.vitals-container {
+  margin: 40px auto;
+  width: 85%;
+  background: #0f172a;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 0 25px #00e5ff30;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.vitals-card {
+  background: #1e293b;
+  padding: 20px 25px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px #00e5ff20;
+}
+.vitals-card h1 {
+  font-family: 'Orbitron', sans-serif;
+  color: #00e5ff;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.live-gauges p {
+  font-size: 16px;
+  margin: 8px 0;
+}
+canvas {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* --- Buttons like BAS --- */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+.controls button {
+  padding: 12px 28px;
+  border-radius: 25px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.controls button.start { background: #00e676; color: #000; }
+.controls button.start:hover { background: #00c853; transform: scale(1.05); }
+.controls button.stop { background: #ff5252; color: #000; }
+.controls button.stop:hover { background: #ff1744; transform: scale(1.05); }
+
+@media (max-width: 768px) {
+  .vitals-container { width: 95%; padding: 20px; }
+  .controls { flex-direction: column; }
+  .controls button { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+  <div class="logo">
+    <a href="maitri.html">🚀 MAITRI</a>
+    <div class="slogan">Astronaut Well-being Assistant</div>
+  </div>
+
+  <ul>
+    <li><a href="maitri.html">🏠 Home</a></li>
+    <li><a href="dashboard.html" class="active">📊 Dashboard</a></li>
+    <li><a href="vitals.html">❤️ Vitals</a></li>
+    <li><a href="ai_assist.html">🤖 AI Assistant</a></li>
+    <li><a href="journal.html">📓 Journal</a></li>
+    <li><a href="bas.html">🛰️ BAS</a></li>
+  </ul>
+</nav>
+
+<!-- Vitals Container -->
+<div class="vitals-container">
+  <div class="vitals-card">
+    <h1>Vitals Monitor</h1>
+    <div class="live-gauges">
+      <p>❤️ Heart Rate: <strong id="heartRate">-- bpm</strong></p>
+      <p>🫁 Oxygen: <strong id="oxygenLevel">--%</strong></p>
+      <p>🧠 Stress: <strong id="stressLevel">--</strong></p>
+    </div>
+    <canvas id="vitalsChart" width="800" height="300"></canvas>
+    <div class="controls">
+      <button class="start" onclick="updateVitals()">Simulate Once</button>
+      <button class="stop" onclick="toggleAmbience()">Toggle Ambience</button>
+    </div>
+  </div>
+</div>
+
+<footer style="color:#9e9e9e; font-size:13px; text-align:center; padding-bottom:30px; margin-top:40px;">
+  © 2025 MAITRI Mission Control • All systems nominal 🚀<br>
+  Designed by TEAM RoboRakshak
+</footer>
+
+<script>
+const ctx = document.getElementById('vitalsChart').getContext('2d');
+const labels = [];
+const heartData = [];
+const oxygenData = [];
+const stressData = [];
+
+const chart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: labels,
+    datasets: [
+      { label: 'Heart Rate (bpm)', borderColor: '#f472b6', backgroundColor: 'rgba(244,114,182,0.1)', data: heartData, tension: 0.3 },
+      { label: 'Oxygen (%)', borderColor: '#5eead4', backgroundColor: 'rgba(94,234,212,0.1)', data: oxygenData, tension: 0.3 },
+      { label: 'Stress', borderColor: '#facc15', backgroundColor: 'rgba(250,204,21,0.1)', data: stressData, tension: 0.3 }
+    ]
+  },
+  options: {
+    responsive: true,
+    scales: { y: { min: 0, max: 120, ticks: { color: '#cfd8dc' } }, x: { ticks: { color: '#cfd8dc' } } },
+    plugins: { legend: { labels: { color: '#cfd8dc' } } }
+  }
+});
+
+function getRandomValue(min, max) { return Math.round(Math.random() * (max - min) + min); }
+
+function updateVitals() {
+  const heart = getRandomValue(60, 100);
+  const oxygen = getRandomValue(88, 100);
+  const stress = getRandomValue(10, 90);
+  const now = new Date().toLocaleTimeString();
+  if (labels.length >= 20) { labels.shift(); heartData.shift(); oxygenData.shift(); stressData.shift(); }
+  labels.push(now); heartData.push(heart); oxygenData.push(oxygen); stressData.push(stress);
+  chart.update();
+  document.getElementById("heartRate").textContent = `${heart} bpm`;
+  document.getElementById("oxygenLevel").textContent = `${oxygen}%`;
+  document.getElementById("stressLevel").textContent = stress < 30 ? "Low" : stress < 60 ? "Moderate" : "High";
+}
+
+function toggleAmbience() { alert("Ambience toggled. (You can add sounds or themes here)"); }
+
+setInterval(updateVitals, 3000);
+updateVitals();
+</script>
+
+</body>
+</html>

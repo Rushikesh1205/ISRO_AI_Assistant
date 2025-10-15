@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MAITRI – Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto+Mono&display=swap" rel="stylesheet">
+<style>
+/* --- Global Styles --- */
+body {
+  margin: 0;
+  font-family: 'Roboto Mono', monospace;
+  color: #cfd8dc;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/6/6f/BAS_Render_NSpDay_2024.jpg?download') no-repeat center center fixed;
+  background-size: cover;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Overlay for readability */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: -1;
+}
+
+/* --- Navbar --- */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(15,23,42,0.85);
+  padding: 15px 40px;
+  box-shadow: 0 0 25px #00ffff40;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+nav .logo {
+  display: flex;
+  flex-direction: column;
+}
+nav .logo a {
+  color: #00e5ff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  text-decoration: none;
+}
+nav .logo .slogan {
+  font-size: 12px;
+  color: #9fb1c9;
+  margin-top: 2px;
+}
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+  margin: 0;
+  flex-wrap: wrap;
+}
+nav ul li a {
+  text-decoration: none;
+  color: #e0e0e0;
+  font-size: 14px;
+  transition: 0.3s;
+}
+nav ul li a:hover, nav ul li a.active {
+  color: #00e5ff;
+  text-shadow: 0 0 10px #00e5ff;
+}
+
+/* --- Page Title --- */
+.page-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  font-family: 'Orbitron', sans-serif;
+  color: #00e5ff;
+  margin: 30px 0 10px;
+}
+.page-title img {
+  width: 60px;
+  height: auto;
+  border: 1px solid #fff;
+  border-radius: 4px;
+}
+.page-title span {
+  font-size: 16px;
+  color: #9fb1c9;
+}
+
+/* --- Header Box --- */
+.header-box {
+  background: rgba(15,23,42,0.85);
+  margin: 20px auto 40px;
+  padding: 40px 20px;
+  width: 85%;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 20px #00e5ff50;
+}
+.header-box h1 {
+  color: #00e5ff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+.header-box .mission-stats {
+  color: #9fb1c9;
+  font-size: 14px;
+}
+
+/* --- Dashboard Content --- */
+.dashboard-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  margin: 20px auto;
+  width: 85%;
+}
+.card {
+  background: rgba(18,35,62,0.85);
+  border-radius: 15px;
+  padding: 25px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 0 15px #00e5ff30;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 25px #00e5ff50;
+}
+.card h2 {
+  color: #00e5ff;
+  font-family: 'Orbitron', monospace;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+/* --- Mood Buttons --- */
+.mood-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+.mood-btn {
+  background: #00e5ff;
+  border: none;
+  color: #000;
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+.mood-btn:hover {
+  background: #00bcd4;
+  transform: scale(1.05);
+}
+
+/* --- Vitals --- */
+.vitals p {
+  margin: 6px 0;
+  font-size: 15px;
+}
+.dot {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+.red { background-color: #f44336; }
+.pink { background-color: #ec407a; }
+.yellow { background-color: #fdd835; }
+.heart-rate::after { content: "78 bpm"; animation: heartAnim 3s infinite alternate; }
+@keyframes heartAnim { 0%{content:"78 bpm";}25%{content:"80 bpm";}50%{content:"77 bpm";}75%{content:"79 bpm";}100%{content:"78 bpm";} }
+.oxygen::after { content: "93%"; animation: oxyAnim 4s infinite alternate; }
+@keyframes oxyAnim { 0%{content:"93%";}25%{content:"92%";}50%{content:"94%";}75%{content:"93%";}100%{content:"93%";} }
+.stress::after { content: "Low"; animation: stressAnim 5s infinite alternate; }
+@keyframes stressAnim { 0%{content:"Low";}25%{content:"Medium";}50%{content:"Low";}75%{content:"Medium";}100%{content:"Low";} }
+.breathing { margin-top: 20px; color: #00e5ff; font-weight: bold; }
+
+/* --- Health Logs --- */
+.logs {
+  width: 80%;
+  margin: 40px auto;
+  padding: 25px;
+  background: rgba(18,35,62,0.85);
+  border-radius: 15px;
+  box-shadow: 0 0 15px #00e5ff30;
+}
+.logs h2 { color: #00e5ff; font-family: 'Orbitron', monospace; margin-bottom: 15px; }
+.logs p { margin: 8px 0; }
+
+/* --- Footer Buttons --- */
+.footer-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 40px 0;
+  flex-wrap: wrap;
+}
+.footer-buttons button {
+  border: none;
+  color: #000;
+  font-weight: bold;
+  padding: 12px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+.footer-buttons button.start { background: #00e676; }
+.footer-buttons button.start:hover { background: #00c853; }
+.footer-buttons button.stop { background: #ff5252; }
+.footer-buttons button.stop:hover { background: #ff1744; }
+
+/* --- Footer --- */
+footer {
+  color: #9e9e9e;
+  font-size: 13px;
+  text-align: center;
+  padding-bottom: 30px;
+  margin-top: 40px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .dashboard-content { flex-direction: column; align-items: center; }
+  .card { width: 90%; }
+  .logs { width: 90%; }
+  .page-title img { width: 50px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+  <div class="logo">
+    <a href="maitri.html">🚀 MAITRI</a>
+    <div class="slogan">Astronaut Well-being Assistant</div>
+  </div>
+
+  <ul>
+    <li><a href="maitri.html">🏠 Home</a></li>
+    <li><a href="dashboard.html" class="active">📊 Dashboard</a></li>
+    <li><a href="vitals.html">❤️ Vitals</a></li>
+    <li><a href="ai_assist.html">🤖 AI Assistant</a></li>
+    <li><a href="journal.html">📓 Journal</a></li>
+    <li><a href="bas.html">🛰️ BAS</a></li>
+  </ul>
+</nav>
+
+<!-- Page Title with Indian Flag -->
+<div class="page-title">
+  <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="Indian Flag">
+  <div>
+    Bharatiya Antariksh Station <br>
+    <span>(Indian Space Station)</span>
+  </div>
+</div>
+
+<!-- Header Box -->
+<div class="header-box">
+  <h1>MAITRI Well-being Dashboard</h1>
+  <div class="mission-stats">🕒 5:59:00 PM | 🌍 Day 1 | 🪐 Orbits: 0.0 | ⭐ Health Score: 0</div>
+</div>
+
+<!-- Dashboard Content -->
+<div class="dashboard-content">
+  <div class="card">
+    <h2>Mood Tracker</h2>
+    <div class="mood-buttons">
+      <button class="mood-btn">😊 Happy</button>
+      <button class="mood-btn">😐 Neutral</button>
+      <button class="mood-btn">😞 Stressed</button>
+    </div>
+  </div>
+
+  <div class="card vitals">
+    <h2>Vitals</h2>
+    <p><span class="dot red"></span> Heart Rate: <span class="heart-rate"></span></p>
+    <p><span class="dot pink"></span> Oxygen: <span class="oxygen"></span></p>
+    <p><span class="dot yellow"></span> Stress: <span class="stress"></span></p>
+    <div class="breathing">💨 Breathing Exercise</div>
+  </div>
+</div>
+
+<!-- Health Logs -->
+<div class="logs">
+  <h2>Health Logs</h2>
+  <p>Exercise: 0 mins</p>
+  <p>Sleep: 0 hrs</p>
+  <p>Water: 0 glasses</p>
+</div>
+
+<!-- Footer Buttons -->
+<div class="footer-buttons">
+  <button class="start">Start 1-min Guide</button>
+  <button class="stop">Stop</button>
+</div>
+
+<!-- Footer -->
+<footer>
+  © 2025 MAITRI Mission Control • All systems nominal 🚀<br>
+  Designed by TEAM RoboRakshak
+</footer>
+
+</body>
+</html>

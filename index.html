@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAITRI - Splash Screen</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto+Mono&display=swap" rel="stylesheet">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Orbitron', 'Roboto Mono', monospace;
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: url('isro.jpg') no-repeat center center/cover;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Animated gradient overlay */
+    body::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(-45deg, rgba(11,15,25,0.7), rgba(26,35,51,0.7), rgba(11,15,25,0.7), rgba(26,35,51,0.7));
+        background-size: 400% 400%;
+        animation: gradientBG 12s ease infinite;
+        z-index: 0;
+    }
+
+    @keyframes gradientBG {
+        0% {background-position:0% 50%;}
+        50% {background-position:100% 50%;}
+        100% {background-position:0% 50%;}
+    }
+
+    /* Splash content */
+    .splash-content {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        animation: fadeInOut 6s forwards;
+    }
+
+    .splash-content p.title {
+        font-size: 48px;
+        color: #00e5ff;
+        font-weight: 700;
+        text-shadow: 0 0 15px #00e5ff, 0 0 30px #00e5ff40;
+        margin-bottom: 10px;
+    }
+
+    .splash-content p.subtitle {
+        font-size: 24px;
+        color: #9fb1c9;
+        letter-spacing: 1px;
+        text-shadow: 0 0 10px #00e5ff20;
+    }
+
+    /* Fade in/out animation */
+    @keyframes fadeInOut {
+        0% { opacity: 0; transform: scale(0.9); }
+        20% { opacity: 1; transform: scale(1); }
+        80% { opacity: 1; transform: scale(1); }
+        100% { opacity: 0; transform: scale(1.1); }
+    }
+
+    /* Loading dots animation */
+    .loading {
+        margin-top: 25px;
+        color: #00e5ff;
+        font-size: 16px;
+        letter-spacing: 2px;
+    }
+    .loading span {
+        animation: blink 1.5s infinite;
+    }
+    .loading span:nth-child(2) { animation-delay: 0.3s; }
+    .loading span:nth-child(3) { animation-delay: 0.6s; }
+
+    @keyframes blink {
+        0%, 50%, 100% { opacity: 0; }
+        25%, 75% { opacity: 1; }
+    }
+
+</style>
+</head>
+<body>
+
+<div class="splash-content">
+    <p class="title">MAITRI</p>
+    <p class="subtitle">Mission Control</p>
+    <p class="loading">Loading<span>.</span><span>.</span><span>.</span></p>
+</div>
+
+<script>
+    // Redirect to login page after 6 seconds
+    setTimeout(() => {
+        window.location.href = "login.html";
+    }, 6000);
+</script>
+
+</body>
+</html>

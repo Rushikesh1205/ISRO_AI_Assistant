@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bharatiya Antariksh Station (BAS)</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto+Mono&display=swap" rel="stylesheet">
+<style>
+/* --- General Styles --- */
+body {
+  margin: 0;
+  font-family: 'Roboto Mono', monospace;
+  color: #cfd8dc;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/6/6f/BAS_Render_NSpDay_2024.jpg?download') no-repeat center center fixed;
+  background-size: cover;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Overlay for readability */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: -1;
+}
+
+/* --- Navbar --- */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.85);
+  padding: 15px 40px;
+  box-shadow: 0 0 25px rgba(0, 229, 255,0.4);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Logo Container */
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+nav .logo-container .logo {
+  color: #00e5ff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  text-decoration: none;
+}
+nav .logo-container .slogan {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+  color: #9e9e9e;
+  margin-top: 2px;
+}
+
+/* Navbar Menu */
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+  margin: 0;
+  flex-wrap: wrap;
+}
+nav ul li a {
+  text-decoration: none;
+  color: #e0e0e0;
+  transition: 0.3s;
+  font-size: 14px;
+}
+nav ul li a:hover,
+nav ul li a.active {
+  color: #00e5ff;
+  text-shadow: 0 0 10px #00e5ff;
+}
+
+/* --- Main Content Box --- */
+main.content {
+  background: rgba(15, 23, 42, 0.75); /* semi-transparent dark blue */
+  padding: 30px 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 30px rgba(0, 229, 255, 0.3);
+  backdrop-filter: blur(10px);
+  max-width: 1200px;
+  margin: 30px auto 50px auto;
+}
+
+/* Infobox */
+.infobox {
+  float: right;
+  width: 300px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  background: rgba(18, 35, 62, 0.75);
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+  backdrop-filter: blur(8px);
+}
+.infobox h3 {
+  color: #00e5ff;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-family: 'Orbitron', monospace;
+}
+.infobox table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.infobox table td {
+  padding: 5px 0;
+  vertical-align: top;
+}
+.infobox strong {
+  color: #00e5ff;
+}
+.infobox img {
+  max-width: 100%;
+  display: block;
+  margin: 10px 0;
+  border-radius: 8px;
+  border-bottom: 1px solid rgba(0,229,255,0.3);
+}
+
+/* Headings and Text */
+.content h1 {
+  color: #00e5ff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.content h1 small {
+  font-size: 16px;
+  color: #7ec8ff;
+  display: block;
+  margin-top: 6px;
+}
+.content h2 {
+  color: #00e5ff;
+  font-family: 'Orbitron', monospace;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+.content h3 {
+  color: #7ec8ff;
+  font-family: 'Orbitron', monospace;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+.content p, .content ul {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+.content ul li {
+  margin-bottom: 10px;
+}
+.content img {
+  max-width: 100%;
+  display: block;
+  margin: 10px 0;
+  border-radius: 8px;
+  border-bottom: 1px solid rgba(0,229,255,0.3);
+}
+.content figcaption {
+  text-align: center;
+  font-style: italic;
+  color: #a0b0bf;
+  margin-bottom: 15px;
+}
+
+/* References */
+.references {
+  background: rgba(18, 35, 62, 0.6);
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,229,255,0.4);
+  backdrop-filter: blur(5px);
+  font-size: 14px;
+  color: #a0b0bf;
+  margin-top: 30px;
+}
+.references ol {
+  padding-left: 20px;
+}
+
+/* Footer */
+footer {
+  margin: 40px 0 20px;
+  font-size: 13px;
+  color: #9e9e9e;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .infobox {
+    float: none;
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 20px;
+  }
+  .logo-container {
+    margin-bottom: 10px;
+  }
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav>
+  <div class="logo-container">
+    <a href="maitri.html" class="logo">🚀 MAITRI</a>
+    <span class="slogan">Astronaut Well-being Assistant</span>
+  </div>
+
+  <ul>
+    <li><a href="maitri.html">🏠 Home</a></li>
+    <li><a href="dashboard.html" class="active">📊 Dashboard</a></li>
+    <li><a href="vitals.html">❤️ Vitals</a></li>
+    <li><a href="ai_assist.html">🤖 AI Assistant</a></li>
+    <li><a href="journal.html">📓 Journal</a></li>
+    <li><a href="bas.html">🛰️ BAS</a></li>
+  </ul>
+</nav>
+
+<main class="content">
+  <!-- Page Title with Indian Flag -->
+  <h1>
+    <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" 
+         alt="Indian Flag" style="width:100px; vertical-align:middle; margin-right:10px;">
+    Bharatiya Antariksh Station 
+    <small>(Indian Space Station)</small>
+  </h1>
+
+  <!-- Infobox on right -->
+  <div class="infobox">
+    <h3>Bharatiya Antariksh Station
+(Indian Space Station)</h3>
+    <table>
+      <tr><td><strong>Crew</strong></td><td>3–4 (proposed)</td></tr>
+      <tr><td><strong>Launch</strong></td><td>First module: 2028, Completion: 2035</td></tr>
+      <tr><td><strong>Carrier Rocket</strong></td><td>LVM3, LVM3-SC</td></tr>
+      <tr><td><strong>Launch Pad</strong></td><td>Satish Dhawan Space Centre</td></tr>
+      <tr><td><strong>Mass</strong></td><td>52 tons</td></tr>
+      <tr><td><strong>Orbit Altitude</strong></td><td>400–450 km</td></tr>
+      <tr><td><strong>Inclination</strong></td><td>51.5°</td></tr>
+      <tr><td><strong>Mission Status</strong></td><td>Under design</td></tr>
+    </table>
+    <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=300&q=80" alt="BAS Module">
+    <figcaption>A graphical representation of Bharatiya Antariksh Station</figcaption>
+  </div>
+
+  <h2>History</h2>
+  <p>In 2019, ISRO chief K. Sivan presented the features of the proposed space station for the first time, saying that the space station may weigh up to 20 tons. Three years later, in his New Year's speech delivered before retiring as chairman, Sivan stated that India's first crewed spaceflight project Gaganyaan had completed the design phase and entered into the testing phase, hinting that the organization has achieved a breakthrough in reaching the space mission milestone.</p>
+  <p>In 2023, chief S. Somanath said: "Our Gaganyaan programme is towards a human space flight capability to space and once that happens, we will be able to look at space station building in subsequent modules. The timeline for this space station project spans the next 20 to 25 years. We will be definitely looking at manned exploration, a human spaceflight for a longer duration, space exercise there in our agenda". Following on from the Gaganyaan project, completing the station and conducting a crewed Moon landing by the year 2040 has been set as ISRO's goal for the upcoming decade, with a whole host of new projects and undertakings to come up in support of the mission.</p>
+  <p>During his visit to India in November 2023, NASA administrator Bill Nelson expressed NASA's readiness to support India's goal of building a commercial space station by 2040 if India seeks such collaboration. This potential partnership could leverage the expertise and experience of both countries, fostering innovation and advancing human presence in space between the two Artemis Accords signatories. In December 2023, Somanath stated that ISRO had a 25-year roadmap extending to the year 2047. This included plans to launch the first space station module in 2028 and complete the station by 2035.</p>
+  <p>The chairman of ISRO, S. Somanath revealed that he had been reviewing the designs of the Indian Space Station when speaking with media during India International Science Festival 2024. Developmental tests for the space station could begin from 2025. ISRO is planning to establish a basic, preliminary model of the space station in 2028 before building the larger, final version in 2035. The space agency is in discussions with industry to produce, evaluate, and introduce the first module by 2028. In addition to offering insights into India's Space Vision 2047, S. Somanath on 26 October 2024, presented the idea of Bharatiya Antariksha Station serving as a base for lunar exploration on Sardar Patel Memorial Lecture. According to Jitendra Singh Rana, Minister of State for Science & Technology and Earth Science, SpaDeX's achievement represents a significant step forward in the establishment of Bharatiya Antariksh Station.</p>
+
+  <h2>Cabinet Approval</h2>
+  <p>Expanding the scope of the Gaganyaan initiative, the Union Cabinet, led by Prime Minister Narendra Modi, approved on 18 September 2024, the development of the Bharatiya Antariksh Station's initial module, BAS-1. The launch of the BAS-1 unit is one of the eight missions that are now part of the redesigned Gaganyaan program, which is scheduled for completion by December 2028. Hardware requirements and more unmanned flights are part of this expansion, which is meant to supplement the continuing human spaceflight programs. The Gaganyaan initiative has received an extra ₹11,170 crore (US$1.3 billion) in financing to support its expanded scope, bringing the total budget to ₹20,193 crore (US$2.4 billion). With four missions under the ongoing Gaganyaan program scheduled by 2026, the development of the BAS-1 module and four additional missions for technology demonstration and validation by 2028, the program aims to develop and demonstrate critical technologies for long-duration human space missions.</p>
+
+  <h2>Design</h2>
+  <p>The BAS will have 5 modules connected via the Common Berthing Mechanism. The entire station will have dimensions of 27m × 20m, It will have a maximum short duration crew capacity of 6 astronauts and a nominal crew size of 3-4 astronauts. BAS will orbit between 400–450 km with an inclination of 51.6° making it accessible to American, Russian, Japanese as well as ESA's spaceports. The establishment of the Bharatiya Antariksha Station is poised to enhance India's presence in space research and exploration significantly as it will provide a unique platform for conducting scientific experiments in microgravity and foster advancements in space technology, potentially leading to economic activities based on lunar resources by 2047.</p>
+  <p>According to ISRO Chairman S. Somanath, the Indian Space Station is in the final stages of design as of February 2024. The electronics for the station will be produced at the U. R. Rao Satellite Centre (URSC) in Bengaluru, while the Vikram Sarabhai Space Centre (VSSC) will help in hardware development.</p>
+  <p>Two to four astronauts could stay in space on the BAS. The crew module and rocket that will transport humans to and from the space station will dock at one end of the station. India is creating a unique docking port that will work with the International Space Station's docking port. At least four pairs of solar panels and four distinct modules are possible for the Indian Space Station once it is finished. In case of an emergency, it will also feature a permanently docked safety crew module escape system. According to the existing blueprints, the Bharatiya Antariksha Station would be powered by two sizable solar panels in the initial phase.</p>
+  <p>In June 2024, S. Somanath informed NDTV about the completion of detailed design work for the space station's Phase-1 module, which is scheduled to launch on LVM3 in 2028. The complete project and cost estimate report is ready for government approval. The module will initially accommodate robotic operations. Human activity will start in 2035.</p>
+  <p>On 9 October 2024, it was announced that the station will have a five-module configuration, consisting of the base, core, science, lab and common working modules. All modules will have individual solar panels except for the Common Working Module.</p>
+  
+  <h2>Key Features</h2>
+  <ul>
+    <li>Mass: 52 tonnes</li>
+    <li>Dimensions: 27 m × 20 m</li>
+    <li>Pressurized Volume: ~265 m³</li>
+    <li>Habitable Volume: ~105 m³</li>
+    <li>Crew Capacity: 3–4 nominal, max 6 short duration</li>
+    <li>Orbit: Circular, 400–450 km, 51.5° inclination</li>
+    <li>Nodes: 2 for connecting modules</li>
+    <li>Docking Provisions: All modules</li>
+    <li>Berthing: Module 5 (4 CBM ports)</li>
+    <li>Robotics: Robotic arm, free-flyers, humanoid support</li>
+    <li>Observation: Cupola module</li>
+    <li>EVA Support: Spacewalks supported</li>
+  </ul>
+
+  <h2>Modules</h2>
+  <ul>
+    <li>BAS-01 Base Module: Essential tech test bed and crew quarters</li>
+    <li>BAS-02 Core-Docking Module: Primary docking ports</li>
+    <li>BAS-03 Science Research Module: Microgravity experiments</li>
+    <li>BAS-04 Laboratory Module: Labs for research</li>
+    <li>BAS-05 Common Berthing Module: Docking ports for additional modules</li>
+  </ul>
+
+  <h2>Technology Development</h2>
+  <p>ISRO is developing a Polymer Electrolyte Membrane Fuel Cell Power System (FCPS). A 100W payload tested on PSLV-C58 demonstrated feasibility.<sup><a href="#ref1">[1]</a></sup></p>
+
+  <div class="references">
+    <h2>References</h2>
+    <ol>
+      <li id="ref1">ISRO. "PSLV-C58 Payload Test Report". 2023.</li>
+    </ol>
+  </div>
+</main>
+
+<footer>
+  © 2025 MAITRI Mission Control • All systems nominal 🚀<br>
+  Designed by TEAM RoboRakshak
+</footer>
+
+</body>
+</html>
